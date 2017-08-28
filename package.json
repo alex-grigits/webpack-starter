@@ -1,0 +1,8 @@
+{
+  "name": "webpack-starter",
+  "version": "0.0.1",
+  "description": "starter template for markup with webpack",
+  "main": "index.js",
+  "author": "Alex Grigits",
+  "license": "MIT"
+}
