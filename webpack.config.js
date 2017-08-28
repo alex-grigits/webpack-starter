@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
 const devserver = require('./webpack/devserver');
@@ -6,6 +7,7 @@ const pug = require('./webpack/pug');
 const sass = require('./webpack/sass');
 const css = require('./webpack/css');
 const extractCSS = require('./webpack/css.extract');
+const uglifyJS = require('./webpack/js.uglify');
 
 const PATHS = {
 	src: path.join(__dirname, 'src'),
@@ -25,13 +27,16 @@ const common = merge([
 		plugins: [
 			new HtmlWebpackPlugin({
 				filename: 'index.html',
-				chunks: ['index'],
+				chunks: ['index', 'common'],
 				template: PATHS.src + '/pages/index/index.pug'
 			}),
 			new HtmlWebpackPlugin({
 				filename: 'blog.html',
-				chunks: ['blog'],
+				chunks: ['blog', 'common'],
 				template: PATHS.src + '/pages/blog/blog.pug'
+			}),
+			new webpack.optimize.CommonsChunkPlugin({
+				name: 'common'
 			})
 		]
 	},
@@ -42,7 +47,8 @@ module.exports = function(env) {
 	if(env === 'production') {
 		return merge([
 			common,
-			extractCSS()
+			extractCSS(),
+			uglifyJS()
 		]);
 	}
 	if(env === 'development') {
