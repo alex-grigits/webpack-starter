@@ -9,6 +9,7 @@ const css = require('./webpack/css');
 const extractCSS = require('./webpack/css.extract');
 const uglifyJS = require('./webpack/js.uglify');
 const images = require('./webpack/images');
+const clean = require('./webpack/clean');
 
 const PATHS = {
 	src: path.join(__dirname, 'src'),
@@ -50,11 +51,13 @@ module.exports = function(env) {
 		return merge([
 			common,
 			extractCSS(),
-			uglifyJS()
+			uglifyJS(),
+			clean(PATHS.dist)
 		]);
 	}
 	if(env === 'development') {
 		return merge([
+			clean(PATHS.dist),
 			common,
 			devserver(),
 			sass(),
@@ -62,3 +65,5 @@ module.exports = function(env) {
 		]);
 	}
 };
+
+console.log(PATHS.dist);
