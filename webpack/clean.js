@@ -15,7 +15,7 @@ const cleanOptions  = {
 	dry:      false
 }
 
-const f = function(pathsToClean) {
+module.exports = function(pathsToClean) {
 	console.log(pathsToClean);
 	return {
 		plugins: [
