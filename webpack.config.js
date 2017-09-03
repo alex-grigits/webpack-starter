@@ -9,6 +9,7 @@ const css = require('./webpack/css');
 const extractCSS = require('./webpack/css.extract');
 const uglifyJS = require('./webpack/js.uglify');
 const images = require('./webpack/images');
+const fonts = require('./webpack/fonts');
 const clean = require('./webpack/clean');
 const babel = require('./webpack/babel');
 
@@ -39,7 +40,8 @@ const common = merge([
 		]
 	},
 	pug(),
-	images()
+	images(),
+	fonts()
 ]);
 
 module.exports = function(env) {
