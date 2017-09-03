@@ -1,26 +1,18 @@
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require('path');
 
-// the path(s) that should be cleaned
-// let pathsToClean = [
-// 	'dist',
-// 	'build'
-// ]
-
-// the clean options to use
-const cleanOptions  = {
-	// root:     path.resolve,
-	exclude:  ['shared.js'],
-	verbose:  true,
-	dry:      false
-}
-
-module.exports = function(pathsToClean) {
-	console.log(pathsToClean);
+module.exports = function() {
 	return {
 		plugins: [
-			new CleanWebpackPlugin(pathsToClean, cleanOptions)
+			new CleanWebpackPlugin(
+				['dist'],
+				{
+					root: __dirname,
+					verbose: true,
+					dry: false
+				}
+			)
 		]
 	};
 };
-console.log(path.join(__dirname));
+

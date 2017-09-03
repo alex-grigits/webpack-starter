@@ -1,0 +1,43 @@
+include _assets/bemto
+- set_bemto_settings({ modifier: "--" })
+
+include head/head
+include header/header
+
+doctype html
+html
+
+	+head({
+		"title": "Webpack Starter",
+		"author": "Alex Grigits",
+		"description": "Webpack template for markup"
+	})
+
+	+b.BODY.page
+		+e.wrap
+			+header({
+				"menu": [
+					{
+						"text": "Главная",
+						"href": "index.html"
+					},
+					{
+						"text": "О вас",
+						"href": "index.html"
+					},
+					{
+						"text": "Информация",
+						"href": "index.html"
+					},
+					{
+						"text": "Блог",
+						"href": "index.html"
+					},
+					{
+						"text": "Контакт",
+						"href": "index.html"
+					}
+				]
+			})
+
+			include footer/footer.pug

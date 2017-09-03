@@ -3,11 +3,17 @@ module.exports = function() {
 		module: {
 			rules: [
 				{
-					test: /\.(png|jpg|svg)$/,
-					loader: 'file-loader',
-					options: {
-						name: 'images/[name].[ext]'
-					}
+					test: /\.(png|jpg|svg|gif)$/,
+					use: [
+						{
+							loader: 'file-loader',
+							options: {
+								name: '[name].[ext]',
+								outputPath: 'images/'
+							}
+						}
+					]
+
 				}
 			]
 		}

@@ -10,6 +10,7 @@ const extractCSS = require('./webpack/css.extract');
 const uglifyJS = require('./webpack/js.uglify');
 const images = require('./webpack/images');
 const clean = require('./webpack/clean');
+const babel = require('./webpack/babel');
 
 const PATHS = {
 	src: path.join(__dirname, 'src'),
@@ -19,23 +20,18 @@ const PATHS = {
 const common = merge([
 	{
 		entry: {
-			'index': PATHS.src + '/pages/index/index.js',
-			'blog': PATHS.src + '/pages/blog/blog.js'
+			'index': PATHS.src + '/blocks/index.js'
 		},
 		output: {
 			path: PATHS.dist,
-			filename: 'js/[name].js'
+			filename: 'js/[name].js',
+			publicPath: '/'
 		},
 		plugins: [
 			new HtmlWebpackPlugin({
 				filename: 'index.html',
 				chunks: ['index', 'common'],
-				template: PATHS.src + '/pages/index/index.pug'
-			}),
-			new HtmlWebpackPlugin({
-				filename: 'blog.html',
-				chunks: ['blog', 'common'],
-				template: PATHS.src + '/pages/blog/blog.pug'
+				template: PATHS.src + '/blocks/index.pug'
 			}),
 			new webpack.optimize.CommonsChunkPlugin({
 				name: 'common'
@@ -57,13 +53,12 @@ module.exports = function(env) {
 	}
 	if(env === 'development') {
 		return merge([
-			clean(PATHS.dist),
 			common,
 			devserver(),
 			sass(),
-			css()
+			css(),
+			clean()
 		]);
 	}
 };
 
-console.log(PATHS.dist);
